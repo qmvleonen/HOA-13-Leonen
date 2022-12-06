@@ -1,0 +1,36 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install ntp, mssql
+    apt:
+      name:
+        - ntp
+        - mysql-server
+      state: latest
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install Open Stack Packages
+    command: snap install --edge microstack --classic
+
+  - name: install etcd
+    apt:
+      name:
+        - etcd
+      state: latest
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install Message Queue and Memcached
+    apt:
+       name:
+         - rabbitmq-server
+         - memcached
+       state: latest
